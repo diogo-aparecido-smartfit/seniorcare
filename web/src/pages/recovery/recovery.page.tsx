@@ -40,9 +40,11 @@ export default function RecoveryPage() {
                 placeholder="••••••••••"
               />
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-800">
-              Definir nova senha
-            </Button>
+            <Link href="/auth/two-factor">
+              <Button className="bg-blue-600 hover:bg-blue-800 w-full">
+                Definir nova senha
+              </Button>
+            </Link>
           </div>
           <Link href="/auth/signin">
             <Button className="mr-auto p-0 items-center" variant="link">

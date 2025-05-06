@@ -29,7 +29,11 @@ export default function SignInPage() {
               <Label htmlFor="password">Password</Label>
               <Input type="password" id="password" placeholder="••••••••••" />
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-800">Continuar</Button>
+            <Link className="flex w-full" href="/auth/two-factor">
+              <Button className="w-full bg-blue-600 hover:bg-blue-800">
+                Continuar
+              </Button>
+            </Link>
           </div>
           <Link href="/auth/recovery">
             <Button className="mr-auto p-0" variant="link">
