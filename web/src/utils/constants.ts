@@ -74,9 +74,9 @@ export const accordionItems = [
 ];
 
 export const stats = [
-  { value: "95%", label: "De satisfação dos usuários" },
-  { value: "540", label: "Clínicas integradas" },
-  { value: "10", label: "Países com uso ativo" },
+  { value: 95, label: "De satisfação dos usuários", suffix: "%" },
+  { value: 540, label: "Clínicas integradas", suffix: "" },
+  { value: 10, label: "Países com uso ativo", suffix: "" },
 ];
 
 export const features = [

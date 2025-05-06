@@ -62,8 +62,8 @@ export const AppNavbar = () => {
     <nav className="w-full h-16">
       <SidebarProvider>
         <div
-          className={`fixed top-0 left-0 w-full z-50 transition-all border-b-[1px] bg-white ${
-            isScrolled && "shadow-md"
+          className={`fixed top-0 left-0 w-full z-50 transition-all  bg-white ${
+            isScrolled && "shadow-md border-b-[1px]"
           }`}
         >
           <div className="p-4  flex items-center justify-between max-w-[1440px] mx-auto">
