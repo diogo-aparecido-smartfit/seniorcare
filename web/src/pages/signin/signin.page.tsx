@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SignInPage() {
   return (
@@ -30,9 +31,11 @@ export default function SignInPage() {
             </div>
             <Button className="bg-blue-600 hover:bg-blue-800">Continuar</Button>
           </div>
-          <Button className="mr-auto p-0" variant="link">
-            Esqueceu sua senha?
-          </Button>
+          <Link href="/auth/recovery">
+            <Button className="mr-auto p-0" variant="link">
+              Esqueceu sua senha?
+            </Button>
+          </Link>
           <Separator />
           <p className="text-sm font-normal text-gray-500">© 2025 SeniorCare</p>
         </div>

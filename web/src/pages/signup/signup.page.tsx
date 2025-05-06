@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SignUpPage() {
   return (
@@ -44,9 +45,11 @@ export default function SignUpPage() {
               Criar conta <IoIosArrowRoundForward />
             </Button>
           </div>
-          <Button className="mr-auto p-0" variant="link">
-            Já tem uma conta? Entre agora mesmo
-          </Button>
+          <Link href="/auth/signin">
+            <Button className="mr-auto p-0" variant="link">
+              Já tem uma conta? Entre agora mesmo
+            </Button>
+          </Link>
           <Separator />
           <p className="text-sm font-normal text-gray-500">© 2025 SeniorCare</p>
         </div>

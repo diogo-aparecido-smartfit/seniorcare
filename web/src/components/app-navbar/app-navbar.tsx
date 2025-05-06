@@ -90,11 +90,13 @@ export const AppNavbar = () => {
               </li>
               <div className="w-[1px] h-5 bg-gray-200 flex" />
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
-                <Link href="">Entrar</Link>
+                <Link href="/auth/signin">Entrar</Link>
               </li>
-              <Button className="cursor-pointer bg-blue-600 hover:bg-blue-800">
-                Comece agora
-              </Button>
+              <Link href="/auth/signup">
+                <Button className="cursor-pointer bg-blue-600 hover:bg-blue-800">
+                  Comece agora
+                </Button>
+              </Link>
             </ul>
             <div className="  flex lg:hidden ">
               <SidebarTrigger />

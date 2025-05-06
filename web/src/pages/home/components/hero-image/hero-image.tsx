@@ -16,8 +16,13 @@ export const HeroImage = ({ src, alt }: HeroImageProps) => {
         width={0}
         height={0}
         sizes="100vw"
+        style={{
+          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+          maskImage: "linear-gradient(to bottom, black, transparent)",
+          WebkitMaskSize: "100% 100%",
+          maskSize: "100% 100%",
+        }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white pointer-events-none" />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
+import Link from "next/link";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function RecoveryPage() {
@@ -43,10 +44,12 @@ export default function RecoveryPage() {
               Definir nova senha
             </Button>
           </div>
-          <Button className="mr-auto p-0 items-center" variant="link">
-            <IoIosArrowRoundBack />
-            Voltar ao Login
-          </Button>
+          <Link href="/auth/signin">
+            <Button className="mr-auto p-0 items-center" variant="link">
+              <IoIosArrowRoundBack />
+              Voltar ao Login
+            </Button>
+          </Link>
           <Separator />
           <p className="text-sm font-normal text-gray-500">© 2025 SeniorCare</p>
         </div>

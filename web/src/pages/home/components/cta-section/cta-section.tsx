@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Title } from "../title/title";
+import Link from "next/link";
 
 interface CTASectionProps {
   title: string;
@@ -22,9 +23,11 @@ export const CTASection = ({
       </div>
       <div className="flex items-center gap-2">
         <Button variant="outline">{secondaryAction}</Button>
-        <Button className="bg-blue-600 hover:bg-blue-800">
-          {primaryAction}
-        </Button>
+        <Link href="/auth/signup">
+          <Button className="bg-blue-600 hover:bg-blue-800">
+            {primaryAction}
+          </Button>
+        </Link>
       </div>
     </section>
   );

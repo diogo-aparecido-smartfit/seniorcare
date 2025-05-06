@@ -6,6 +6,7 @@ import { CTASection } from "./components/cta-section/cta-section";
 import { FeatureList } from "./components/feature-list/feature-list";
 import { StatsSection } from "./components/stats-section/stats-section";
 import { HeroImage } from "./components/hero-image/hero-image";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -22,9 +23,11 @@ export default function HomePage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button className="bg-blue-600 hover:bg-blue-800">
-            Comece agora
-          </Button>
+          <Link href="/auth/signup">
+            <Button className="bg-blue-600 hover:bg-blue-800">
+              Comece agora
+            </Button>
+          </Link>
           <Button variant="outline">Saiba mais</Button>
         </div>
         <HeroImage src="/images/hero-image.jpg" alt="Hero Image" />
