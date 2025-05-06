@@ -64,10 +64,14 @@ export default function HomePage() {
             funcionalidades essenciais.
           </p>
         </div>
-        <div className="w-full flex flex-col lg:flex-row lg:gap-8">
-          <AccordionList items={accordionItems.slice(0, 6)} />
-          <AccordionList isLast items={accordionItems.slice(5, 11)} />
-        </div>
+        <ul className="flex flex-col lg:flex-row lg:gap-8 w-full">
+          <div className="flex-1">
+            <AccordionList items={accordionItems.slice(0, 6)} />
+          </div>
+          <div className="flex-1">
+            <AccordionList isLast items={accordionItems.slice(5, 11)} />
+          </div>
+        </ul>
       </section>
 
       <CTASection

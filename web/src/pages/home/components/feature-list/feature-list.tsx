@@ -32,7 +32,7 @@ export const FeatureList = ({ features }: FeatureListProps) => {
           sizes="100vw"
         />
       </div>
-      <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-fit w-full">
+      <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-fit w-full items-start">
         {features.map((feature, index) => {
           const Icon = icons[feature.icon as keyof typeof icons];
           return (
