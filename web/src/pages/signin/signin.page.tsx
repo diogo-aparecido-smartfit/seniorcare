@@ -23,7 +23,7 @@ export default function SignInPage() {
           <Label htmlFor="password">Password</Label>
           <Input type="password" id="password" placeholder="••••••••••" />
         </div>
-        <Link className="flex w-full" href="/auth/two-factor">
+        <Link className="flex w-full" href="/auth/verify">
           <Button className="w-full bg-blue-600 hover:bg-blue-800">
             Continuar
           </Button>

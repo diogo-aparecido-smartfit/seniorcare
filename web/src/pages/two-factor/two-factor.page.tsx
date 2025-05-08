@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   InputOTP,
@@ -7,9 +9,12 @@ import {
 } from "@/components/ui/input-otp";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { IoFingerPrintOutline } from "react-icons/io5";
 
 export default function TwoFactorPage() {
+  const router = useRouter();
+
   return (
     <section className="flex flex-col gap-2 w-full min-h-screen h-full bg-gray-100 items-center justify-center p-10">
       <div className="flex flex-col border-[1px] rounded-md w-full lg:max-w-1/3 bg-white">
@@ -82,10 +87,10 @@ export default function TwoFactorPage() {
         </div>
         <Separator />
         <div className="flex flex-row items-center justify-between p-4">
-          <Link href="/auth/signin">
-            <Button variant="outline">Cancelar</Button>
-          </Link>
-          <Link href="">
+          <Button onClick={() => router.back()} variant="outline">
+            Cancelar
+          </Button>
+          <Link href="/dashboard/overview">
             <Button className="bg-blue-600 hover:bg-blue-800">Verificar</Button>
           </Link>
         </div>

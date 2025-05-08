@@ -35,7 +35,7 @@ export default function SignUpPage() {
             placeholder="••••••••••"
           />
         </div>
-        <Link href="/dashboard/overview">
+        <Link href="/auth/two-factor">
           <Button className="w-full bg-blue-600 hover:bg-blue-800 items-center">
             Criar conta <IoIosArrowRoundForward />
           </Button>
