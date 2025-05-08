@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const mockUser = {
-  isLoggedIn: false,
-  permissions: ["dashboard", "profile"],
+  isLoggedIn: true,
+  permissions: ["profile", "dashboard"],
 };
 
 const protectedRoutes = {
@@ -14,14 +14,18 @@ const protectedRoutes = {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname in protectedRoutes) {
+  const matchedRoute = Object.keys(protectedRoutes).find((route) =>
+    pathname.startsWith(route)
+  );
+
+  if (matchedRoute) {
     if (!mockUser.isLoggedIn) {
       return NextResponse.rewrite(new URL("/auth/unauthorized", request.url));
     }
 
     if (
       !mockUser.permissions.includes(
-        protectedRoutes[pathname as keyof typeof protectedRoutes]
+        protectedRoutes[matchedRoute as keyof typeof protectedRoutes]
       )
     ) {
       return NextResponse.rewrite(new URL("/auth/unauthorized", request.url));
@@ -32,5 +36,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/profile", "/auth/signup"],
+  matcher: ["/dashboard/:path*", "/profile"],
 };

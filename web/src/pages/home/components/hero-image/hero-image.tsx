@@ -17,8 +17,9 @@ export const HeroImage = ({ src, alt }: HeroImageProps) => {
         height={0}
         sizes="100vw"
         style={{
-          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
-          maskImage: "linear-gradient(to bottom, black, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 50%, transparent 100%)",
+          maskImage: "linear-gradient(to bottom, black 50%, transparent)",
           WebkitMaskSize: "100% 100%",
           maskSize: "100% 100%",
         }}

@@ -11,7 +11,7 @@ import { IoFingerPrintOutline } from "react-icons/io5";
 
 export default function TwoFactorPage() {
   return (
-    <section className="flex flex-col gap-2 w-full h-full bg-gray-100 items-center justify-center p-10">
+    <section className="flex flex-col gap-2 w-full min-h-screen h-full bg-gray-100 items-center justify-center p-10">
       <div className="flex flex-col border-[1px] rounded-md w-full lg:max-w-1/3 bg-white">
         <div className="p-4 ">
           <p className="font-bold text-sm text-black text-center">

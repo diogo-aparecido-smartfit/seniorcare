@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/contexts/Providers";
 
 const interSans = Inter({
   variable: "--font-inter-sans",
@@ -25,11 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${interSans.variable} ${robotoMono.variable} antialiased`}
-      >
-        <main>{children}</main>
-      </body>
+      <Providers>
+        <body
+          className={`${interSans.variable} ${robotoMono.variable} antialiased`}
+        >
+          <main>{children}</main>
+        </body>
+      </Providers>
     </html>
   );
 }

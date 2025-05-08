@@ -24,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { IconType } from "react-icons/lib";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -253,11 +254,16 @@ function Sidebar({
   );
 }
 
+interface SidebarTriggerProps {
+  Icon?: IconType;
+}
+
 function SidebarTrigger({
   className,
   onClick,
+  Icon,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & SidebarTriggerProps) {
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -273,7 +279,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <MenuIcon />
+      {Icon ? <Icon /> : <MenuIcon />}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

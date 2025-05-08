@@ -13,7 +13,7 @@ export default function SideImageLayout({
   imageAlt,
 }: SideImageLayoutProps) {
   return (
-    <div className="flex items-center w-full h-screen justify-between">
+    <div className="flex items-center w-full min-h-screen h-full justify-between">
       <section className="flex flex-col items-center justify-center h-full w-full">
         <div className="flex flex-col justify-center p-4 h-full w-full lg:w-1/2 gap-4">
           {children}

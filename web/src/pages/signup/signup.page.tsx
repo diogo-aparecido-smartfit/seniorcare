@@ -35,9 +35,11 @@ export default function SignUpPage() {
             placeholder="••••••••••"
           />
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-800 items-center">
-          Criar conta <IoIosArrowRoundForward />
-        </Button>
+        <Link href="/dashboard/overview">
+          <Button className="w-full bg-blue-600 hover:bg-blue-800 items-center">
+            Criar conta <IoIosArrowRoundForward />
+          </Button>
+        </Link>
       </div>
       <Link href="/auth/signin">
         <Button className="mr-auto p-0" variant="link">
