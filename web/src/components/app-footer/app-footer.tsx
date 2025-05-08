@@ -12,27 +12,33 @@ export const AppFooter = () => {
       </button>
       <ul className="flex flex-row items-center gap-4">
         <li className="text-gray-500 font-medium text-xs hover:text-gray-400 transition-all">
-          <Link href="">Contato</Link>
+          <Link href="/contact">Contato</Link>
         </li>
         <li className="text-gray-500 font-medium text-xs hover:text-gray-400 transition-all">
-          <Link href="">Copyright</Link>
+          <Link href="/copyright">Copyright</Link>
         </li>
         <li className="text-gray-500 font-medium text-xs hover:text-gray-400 transition-all">
-          <Link href="">Privacidade</Link>
+          <Link href="/privacy">Privacidade</Link>
         </li>
         <li className="text-gray-500 font-medium text-xs hover:text-gray-400 transition-all">
-          <Link href="">Termos</Link>
+          <Link href="/terms">Termos</Link>
         </li>
       </ul>
       <ul className="flex flex-row items-center gap-4">
         <li className="text-gray-500 font-medium  hover:text-gray-400 transition-all">
-          <FaFacebook />
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <FaFacebook />
+          </a>
         </li>
         <li className="text-gray-500 font-medium  hover:text-gray-400 transition-all">
-          <FaInstagram />
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <FaInstagram />
+          </a>
         </li>
         <li className="text-gray-500 font-medium  hover:text-gray-400 transition-all">
-          <FaThreads />
+          <a href="http://" target="_blank" rel="noopener noreferrer">
+            <FaThreads />
+          </a>
         </li>
       </ul>
       <p className="text-gray-500 font-normal text-xs transition-all">

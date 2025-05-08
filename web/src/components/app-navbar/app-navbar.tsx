@@ -14,35 +14,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
-import { Home, Sparkles, BarChart2, HelpCircle, MailIcon } from "lucide-react";
-
-const items = [
-  {
-    title: "Início",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Diferenciais",
-    url: "#",
-    icon: Sparkles,
-  },
-  {
-    title: "Estatísticas",
-    url: "#",
-    icon: BarChart2,
-  },
-  {
-    title: "FAQ",
-    url: "#",
-    icon: HelpCircle,
-  },
-  {
-    title: "Contato",
-    url: "#",
-    icon: MailIcon,
-  },
-];
+import { items } from "./items";
 
 export const AppNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
