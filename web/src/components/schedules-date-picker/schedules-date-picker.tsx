@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
 
-const DatePicker = () => {
+const SchedulesDatePicker = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   useEffect(() => {
@@ -52,4 +52,4 @@ const DatePicker = () => {
   );
 };
 
-export default DatePicker;
+export default SchedulesDatePicker;

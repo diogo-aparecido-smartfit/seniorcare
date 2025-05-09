@@ -1,5 +1,5 @@
-import { columns, Payment } from "./components/elderly-table/columns";
-import { DataTable } from "./components/elderly-table/data-table";
+import { Payment, columns } from "@/components/elderly-table/columns";
+import { DataTable } from "@/components/elderly-table/data-table";
 
 async function getData(): Promise<Payment[]> {
   return [

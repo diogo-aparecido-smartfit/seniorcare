@@ -14,6 +14,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     loginRequest: (_state, _action: PayloadAction<{ name: string }>) => {},
     loginSuccess: (state, action: PayloadAction<{ name: string }>) => {
       state.isLoggedIn = true;

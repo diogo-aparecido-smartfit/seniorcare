@@ -5,8 +5,8 @@ import { Clock, Video } from "lucide-react";
 import { useState } from "react";
 import { format, isToday } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import DatePicker from "./components/date-picker/date-picker";
 import { capitalizeFirstLetter } from "@/utils/utils";
+import SchedulesDatePicker from "@/components/schedules-date-picker/schedules-date-picker";
 
 export default function SchedulesPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -24,7 +24,7 @@ export default function SchedulesPage() {
           {formattedToday}
         </h1>
         <span className="flex xl:hidden">
-          <DatePicker />
+          <SchedulesDatePicker />
         </span>
         <ul className="flex flex-col gap-6 w-full xl:w-fit px-3 xl:px-0">
           <li className="flex flex-col border-b-[1px] py-10">

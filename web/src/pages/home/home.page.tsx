@@ -1,11 +1,11 @@
+import { AccordionList } from "@/components/accordion-list/accordion-list";
+import { CTASection } from "@/components/cta-section/cta-section";
+import { FeatureList } from "@/components/feature-list/feature-list";
+import { HeroImage } from "@/components/hero-image/hero-image";
+import { StatsSection } from "@/components/stats-section/stats-section";
+import { Title } from "@/components/title/title";
 import { Button } from "@/components/ui/button";
-import { Title } from "./components/title/title";
 import { stats, accordionItems, features } from "@/utils/constants";
-import { AccordionList } from "./components/accordion-list/accordion-list";
-import { CTASection } from "./components/cta-section/cta-section";
-import { FeatureList } from "./components/feature-list/feature-list";
-import { StatsSection } from "./components/stats-section/stats-section";
-import { HeroImage } from "./components/hero-image/hero-image";
 import Link from "next/link";
 
 export default function HomePage() {

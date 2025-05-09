@@ -1,4 +1,4 @@
-import UnauthorizedPage from "@/pages/unauthorized/unauthorized.page";
+import UnauthorizedPage from "@/pages/auth/unauthorized/unauthorized.page";
 
 export default function Unauthorized() {
   return <UnauthorizedPage />;

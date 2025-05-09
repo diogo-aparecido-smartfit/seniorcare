@@ -1,10 +1,10 @@
-import DatePicker from "./components/date-picker/date-picker";
+import { CareGiversChart } from "@/components/caregivers-chart/caregivers-chart";
 import { DataCard } from "@/components/data-card/data-card";
-import OverviewChart from "./components/overview-chart/overview-chart";
-import { ElderlyChart } from "./components/elderly-chart/elderly-chart";
-import { CareGiversChart } from "./components/caregivers-chart/caregivers-chart";
-import { HealthIndicatorsChart } from "./components/health-indicators-chart/health-indicators-chart";
-import { MedicationsChart } from "./components/medications-chart/medications-chart";
+import DatePicker from "@/components/date-picker/date-picker";
+import { ElderlyChart } from "@/components/elderly-chart/elderly-chart";
+import { HealthIndicatorsChart } from "@/components/health-indicators-chart/health-indicators-chart";
+import { MedicationsChart } from "@/components/medications-chart/medications-chart";
+import OverviewChart from "@/components/overview-chart/overview-chart";
 
 export default function OverviewPage() {
   return (
