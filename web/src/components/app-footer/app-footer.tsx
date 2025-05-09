@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
 
-export const AppFooter = () => {
+const AppFooter = () => {
   return (
     <footer className="flex flex-col items-center gap-6 py-10">
       <button className="cursor-pointer">
@@ -47,3 +47,5 @@ export const AppFooter = () => {
     </footer>
   );
 };
+
+export default AppFooter;

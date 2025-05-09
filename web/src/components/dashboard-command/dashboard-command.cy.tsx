@@ -1,4 +1,4 @@
-import { DashboardCommand } from "./dashboard-command";
+import DashboardCommand from "./dashboard-command";
 
 describe("DashboardCommand Component", () => {
   beforeEach(() => {

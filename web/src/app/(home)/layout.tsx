@@ -1,5 +1,5 @@
-import { AppNavbar } from "@/components/app-navbar/app-navbar";
-import { AppFooter } from "@/components/app-footer/app-footer";
+import AppNavbar from "@/components/app-navbar/app-navbar";
+import AppFooter from "@/components/app-footer/app-footer";
 import LenisWrapper from "@/components/lenis/lenis";
 
 export default function HomeLayout({

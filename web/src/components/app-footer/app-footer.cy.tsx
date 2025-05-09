@@ -1,4 +1,4 @@
-import { AppFooter } from "./app-footer";
+import AppFooter from "./app-footer";
 
 describe("AppFooter Component", () => {
   beforeEach(() => {

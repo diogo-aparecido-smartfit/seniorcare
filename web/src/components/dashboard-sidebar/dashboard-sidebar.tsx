@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -13,15 +15,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { mainItems, managementItems, settingsItems } from "./items";
-import { headers } from "next/headers";
+import { usePathname } from "next/navigation";
 
-export async function DashboardSidebar() {
-  const headersList = await headers();
-  const currentUrl =
-    headersList.get("x-nextjs-url") || headersList.get("referer") || "/";
-  const pathname = new URL(currentUrl, "http://localhost").pathname;
-
-  console.log("pathname: ", pathname);
+const DashboardSidebar = () => {
+  const pathname = usePathname() || "/";
 
   return (
     <Sidebar collapsible="icon">
@@ -103,4 +100,6 @@ export async function DashboardSidebar() {
       </SidebarFooter>
     </Sidebar>
   );
-}
+};
+
+export default DashboardSidebar;

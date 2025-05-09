@@ -13,7 +13,7 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
-import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const routeMap: Record<string, string> = {
   dashboard: "/dashboard/overview",
@@ -22,7 +22,7 @@ const routeMap: Record<string, string> = {
 
 type RouteType = keyof typeof routeMap;
 
-export const DashboardNavbar = () => {
+const DashboardNavbar = () => {
   const pathname = usePathname();
   const routeArray = pathname?.split("/").slice(1) || [];
 
@@ -30,9 +30,9 @@ export const DashboardNavbar = () => {
     <nav className="flex flex-row p-4 items-center justify-between border-b-[1px]">
       <SidebarTrigger className="flex md:hidden" />
       <div className="flex md:hidden gap-4 items-center">
-        <button className="flex md:hidden">
+        <Button variant="ghost" className="flex md:hidden">
           <FiBell size={20} />
-        </button>
+        </Button>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
@@ -62,8 +62,18 @@ export const DashboardNavbar = () => {
         </Breadcrumb>
       </div>
       <div className="hidden md:flex items-center gap-4">
-        <Input className="bg-gray-100" placeholder="Pesquisar ⌘/" />
+        <p className="text-sm text-muted-foreground">
+          Pesquise com{" "}
+          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+            <span className="text-xs">⌘</span>K
+          </kbd>
+        </p>
+        <Button variant="ghost" className="hidden md:flex">
+          <FiBell size={24} />
+        </Button>
       </div>
     </nav>
   );
 };
+
+export default DashboardNavbar;

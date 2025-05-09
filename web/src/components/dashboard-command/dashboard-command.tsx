@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export function DashboardCommand() {
+const DashboardCommand = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -77,4 +77,6 @@ export function DashboardCommand() {
       </Command>
     </CommandDialog>
   );
-}
+};
+
+export default DashboardCommand;

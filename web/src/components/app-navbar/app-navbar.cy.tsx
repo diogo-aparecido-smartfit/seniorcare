@@ -1,4 +1,4 @@
-import { AppNavbar } from "./app-navbar";
+import AppNavbar from "./app-navbar";
 
 describe("AppNavbar Component", () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import { SidebarProvider } from "../ui/sidebar";
-import { DashboardNavbar } from "./dashboard-navbar";
+import DashboardNavbar from "./dashboard-navbar";
 import * as nextRouter from "next/navigation";
 
 describe("DashboardNavbar Component", () => {

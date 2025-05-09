@@ -7,11 +7,11 @@ interface SideImageLayoutProps {
   imageAlt: string;
 }
 
-export default function SideImageLayout({
+export const SideImageLayout = ({
   children,
   imageSrc,
   imageAlt,
-}: SideImageLayoutProps) {
+}: SideImageLayoutProps) => {
   return (
     <div className="flex items-center w-full min-h-screen h-full justify-between">
       <section className="flex flex-col items-center justify-center h-full w-full">
@@ -32,4 +32,6 @@ export default function SideImageLayout({
       </div>
     </div>
   );
-}
+};
+
+export default SideImageLayout;

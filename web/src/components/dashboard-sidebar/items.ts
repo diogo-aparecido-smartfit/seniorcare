@@ -19,7 +19,7 @@ export const mainItems = [
   },
   {
     title: "Idosos",
-    url: "/dashboard/eldely",
+    url: "/dashboard/elderly",
     icon: Users,
   },
   {

@@ -16,7 +16,7 @@ import Link from "next/link";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { items } from "./items";
 
-export const AppNavbar = () => {
+const AppNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -101,3 +101,5 @@ export const AppNavbar = () => {
     </nav>
   );
 };
+
+export default AppNavbar;
