@@ -16,7 +16,7 @@ export const CTASection = ({
   secondaryAction,
 }: CTASectionProps) => {
   return (
-    <section className="flex flex-col items-center gap-10 py-24">
+    <section id="contact" className="flex flex-col items-center gap-10 py-24">
       <div className="flex flex-col lg:max-w-1/2 gap-4 items-center">
         <Title>{title}</Title>
         <p className="text-gray-500 text-center">{description}</p>

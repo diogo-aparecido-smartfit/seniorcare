@@ -11,8 +11,8 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <div className="flex flex-col max-w-[1440px] p-4 w-full cursor-default">
-      <section className="flex flex-col items-center gap-4 py-24">
-        <div className="flex flex-col lg:max-w-1/2 gap-4">
+      <section id="home" className="flex flex-col items-center gap-4 py-24">
+        <div className="flex relative flex-col lg:max-w-1/2 gap-4">
           <Title>
             Cuidar de quem cuida. <br /> Gerencie o cuidado com idosos de forma
             simples e eficiente.
@@ -33,7 +33,10 @@ export default function HomePage() {
         <HeroImage src="/images/hero-image.jpg" alt="Hero Image" />
       </section>
 
-      <section className="flex flex-col items-center gap-4 py-24">
+      <section
+        id="differentials"
+        className="flex flex-col items-center gap-4 py-24"
+      >
         <div className="flex flex-col lg:max-w-1/2 gap-4 items-center mb-12">
           <div className="px-2.5 py-1 border-[1px] rounded-xl">
             <p className="text-xs text-black font-semibold">
@@ -51,7 +54,7 @@ export default function HomePage() {
 
       <StatsSection stats={stats} />
 
-      <section className="flex flex-col items-center gap-10 py-24">
+      <section id="faq" className="flex flex-col items-center gap-10 py-24">
         <div className="flex flex-col lg:max-w-1/2 gap-4 items-center">
           <div className="px-2.5 py-1 border-[1px] rounded-xl">
             <p className="text-xs text-black font-semibold">

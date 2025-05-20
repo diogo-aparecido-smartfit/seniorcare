@@ -12,6 +12,7 @@ export const StatsSection = ({ stats }: StatsSectionProps) => {
 
   return (
     <section
+      id="statistics"
       ref={elementRef}
       className="flex flex-col items-center gap-4 py-24"
     >

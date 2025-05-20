@@ -1,6 +1,6 @@
 import AppNavbar from "@/components/app-navbar/app-navbar";
 import AppFooter from "@/components/app-footer/app-footer";
-import LenisWrapper from "@/components/lenis/lenis";
+import { LenisProvider } from "@/contexts/Lenis";
 
 export default function HomeLayout({
   children,
@@ -9,13 +9,13 @@ export default function HomeLayout({
 }) {
   return (
     <section>
-      <LenisWrapper>
+      <LenisProvider>
         <AppNavbar />
-        <main className="flex w-full items-center justify-center scroll-smooth">
+        <main className="flex w-full items-center justify-center">
           {children}
         </main>
         <AppFooter />
-      </LenisWrapper>
+      </LenisProvider>
     </section>
   );
 }

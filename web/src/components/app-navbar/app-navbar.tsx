@@ -15,9 +15,36 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { items } from "./items";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const AppNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string
+  ) => {
+    e.preventDefault();
+
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+      if (targetId === "#home") {
+        window.scrollTo({
+          behavior: "smooth",
+          top: 0,
+        });
+        return;
+      }
+
+      targetElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    } else {
+      console.warn(`Elemento com o ID "${targetId}" não encontrado.`);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,26 +66,49 @@ const AppNavbar = () => {
           }`}
         >
           <div className="p-4  flex items-center justify-between max-w-[1440px] mx-auto">
-            <button className="cursor-pointer">
+            <button className="flex flex-row items-center gap-4 cursor-pointer">
+              <Avatar>
+                <AvatarImage src="/logo.svg" />
+                <AvatarFallback>SC</AvatarFallback>
+              </Avatar>
               <p className="flex items-center">
                 Senior<strong className="text-blue-600">Care</strong>
               </p>
             </button>
             <ul className="hidden lg:flex flex-row items-center gap-6">
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
-                <Link href="">Início</Link>
+                <Link onClick={(e) => handleScroll(e, "#home")} href="#home">
+                  Início
+                </Link>
               </li>
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
-                <Link href="">Diferenciais</Link>
+                <Link
+                  onClick={(e) => handleScroll(e, "#differentials")}
+                  href="#differentials"
+                >
+                  Diferenciais
+                </Link>
               </li>
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
-                <Link href="">Estatísticas</Link>
+                <Link
+                  onClick={(e) => handleScroll(e, "#statistics")}
+                  href="#statistics"
+                >
+                  Estatísticas
+                </Link>
               </li>
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
-                <Link href="">FAQ</Link>
+                <Link onClick={(e) => handleScroll(e, "#faq")} href="#faq">
+                  FAQ
+                </Link>
               </li>
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
-                <Link href="">Contato</Link>
+                <Link
+                  onClick={(e) => handleScroll(e, "#contact")}
+                  href="#contact"
+                >
+                  Contato
+                </Link>
               </li>
               <div className="w-[1px] h-5 bg-gray-200 flex" />
               <li className="text-gray-500 font-medium hover:text-gray-400 transition-all">
