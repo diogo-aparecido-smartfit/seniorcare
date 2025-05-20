@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/elderly-table/data-table";
-import { columns, DataType } from "./data.columns";
+import { DataType, columns } from "@/mock/data.columns";
 
 async function getData(): Promise<DataType[]> {
   return [
