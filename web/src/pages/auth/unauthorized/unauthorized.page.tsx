@@ -1,8 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 import { GoLock, GoUnlock } from "react-icons/go";
 
 export default function UnauthorizedPage() {
+  const router = useRouter();
+
   return (
     <section className="flex w-full h-screen flex-col justify-center items-center">
       <div className="flex flex-col lg:max-w-1/3 gap-6 p-10">
@@ -21,10 +25,15 @@ export default function UnauthorizedPage() {
           </div>
         </div>
         <Textarea />
-        <Button variant="outline">
-          <GoUnlock />
-          Enviar solicitação
-        </Button>
+        <div className="flex flex-col gap-2">
+          <Button variant="outline">
+            <GoUnlock />
+            Enviar solicitação
+          </Button>
+          <Button onClick={() => router.back()} variant="ghost">
+            Voltar
+          </Button>
+        </div>
       </div>
     </section>
   );

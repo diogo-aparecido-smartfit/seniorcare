@@ -60,13 +60,15 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="flex flex-col h-full">
       <div className="flex items-center py-4 gap-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Pesquise por nome/documento/data de nascimento"
+          value={
+            (table.getColumn("full_name")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("full_name")?.setFilterValue(event.target.value)
           }
           className="w-full"
         />
@@ -74,7 +76,7 @@ export function DataTable<TData, TValue>({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns
+              Filtrar
               <Filter />
             </Button>
           </DropdownMenuTrigger>
@@ -86,13 +88,15 @@ export function DataTable<TData, TValue>({
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className="capitalize cursor-pointer"
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
                     }
                   >
-                    {column.id}
+                    {typeof column.columnDef.header === "string"
+                      ? column.columnDef.header
+                      : column.id}
                   </DropdownMenuCheckboxItem>
                 );
               })}
@@ -100,7 +104,7 @@ export function DataTable<TData, TValue>({
         </DropdownMenu>
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-md border h-full">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -120,7 +124,7 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="h-full">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

@@ -2,13 +2,19 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const mockUser = {
-  isLoggedIn: false,
-  permissions: ["profile", "dashboard"],
+  isLoggedIn: true,
+  permissions: ["profile", "overview", "schedules"],
 };
 
 const protectedRoutes = {
-  "/dashboard": "dashboard",
-  "/profile": "profile",
+  "/dashboard/overview": "overview",
+  "/dashboard/schedules": "schedules",
+  "/dashboard/medical-history": "medical-history",
+  "/dashboard/documents": "documents",
+  "/dashboard/revenue": "revenue",
+  "/dashboard/audit": "audit",
+  "/dashboard/users": "users",
+  "/dashboard/settings": "settings",
 };
 
 export function middleware(request: NextRequest) {
@@ -36,5 +42,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile"],
+  matcher: ["/dashboard/:path*"],
 };

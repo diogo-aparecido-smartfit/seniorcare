@@ -1,13 +1,16 @@
-import { Payment, columns } from "@/components/elderly-table/columns";
 import { DataTable } from "@/components/elderly-table/data-table";
+import { columns, DataType } from "./data.columns";
 
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<DataType[]> {
   return [
     {
       id: "728ed52f",
-      amount: 100,
+      full_name: "Jerome Bell",
+      birthdate: "10/10/1960",
+      address: "Rua X, Bairro Y, Cidade Z",
+      responsible_caregiver: "Maria",
+      emergency_contact: "(205) 555-0100",
       status: "pending",
-      email: "m@example.com",
     },
   ];
 }

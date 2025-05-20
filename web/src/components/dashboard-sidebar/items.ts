@@ -60,7 +60,7 @@ export const managementItems = [
 
 export const settingsItems = [
   {
-    title: "Settings",
+    title: "Configurações",
     url: "/dashboard/documents",
     icon: Settings,
   },
