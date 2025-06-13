@@ -66,7 +66,13 @@ const DashboardSidebar = () => {
               {managementItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url}>
+                    <Link
+                      className={`${
+                        pathname.includes(item.url) &&
+                        "bg-neutral-100 text-blue-500"
+                      }`}
+                      href={item.url}
+                    >
                       <item.icon />
                       <span>{item.title}</span>
                     </Link>

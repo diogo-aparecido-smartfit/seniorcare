@@ -16,49 +16,51 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { chartConfig } from "@/config/chart.config";
-import { overviewChartData as chartData } from "@/mock/overview-chart.data";
 
-const OverviewChart = () => {
-  const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>("desktop");
+interface RecentAlert {
+  month: string;
+  count: number;
+}
+
+interface OverviewChartProps {
+  data: RecentAlert[];
+}
+
+const OverviewChart: React.FC<OverviewChartProps> = ({ data }) => {
+  const processedData = React.useMemo(() => {
+    return data.map((item) => ({
+      date: item.month,
+      alerts: item.count,
+    }));
+  }, [data]);
 
   const total = React.useMemo(
     () => ({
-      desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
-      mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
+      alerts: processedData.reduce((acc, curr) => acc + curr.alerts, 0),
     }),
-    []
+    [processedData]
   );
 
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Visão Geral</CardTitle>
+          <CardTitle>Alertas em Geral</CardTitle>
           <CardDescription>
-            Mostrando indicadores de idosos, cuidadores e atividades nos últimos
-            meses.
+            Número total de alertas gerados por sensores ou registros manuais.
           </CardDescription>
         </div>
-        <div className="flex">
-          {["desktop", "mobile"].map((key) => {
-            const chart = key as keyof typeof chartConfig;
-            return (
-              <button
-                key={chart}
-                data-active={activeChart === chart}
-                className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
-                onClick={() => setActiveChart(chart)}
-              >
-                <span className="text-xs text-muted-foreground">
-                  {chartConfig[chart].label}
-                </span>
-                <span className="text-lg font-bold leading-none sm:text-3xl">
-                  {total[key as keyof typeof total].toLocaleString()}
-                </span>
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-2 px-6 py-3 sm:justify-end sm:border-l sm:py-6">
+          <button className="hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm transition-colors bg-accent">
+            <div
+              className="size-1.5 rounded-full"
+              style={{ background: "var(--chart-1)" }}
+            />
+            <span>Alertas</span>
+            <span className="text-lg font-bold leading-none sm:text-3xl">
+              {total.alerts.toLocaleString()}
+            </span>
+          </button>
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
@@ -68,7 +70,7 @@ const OverviewChart = () => {
         >
           <BarChart
             accessibilityLayer
-            data={chartData}
+            data={processedData}
             margin={{
               left: 12,
               right: 12,
@@ -81,30 +83,23 @@ const OverviewChart = () => {
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value);
-                return date.toLocaleDateString("pt-BR", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
+              tickFormatter={(value) => value}
             />
             <ChartTooltip
               content={
                 <ChartTooltipContent
-                  className="w-[150px]"
-                  nameKey="views"
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("pt-BR", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    });
+                    return value;
                   }}
                 />
               }
             />
-            <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`} />
+            <Bar
+              dataKey="alerts"
+              radius={[4, 4, 0, 0]}
+              fill="var(--chart-1)"
+              className="data-[focus]:fill-[var(--chart-1-active)]"
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>

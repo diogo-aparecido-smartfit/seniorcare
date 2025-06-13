@@ -1,19 +1,29 @@
 import {
-  Calendar,
+  BarChartBig,
+  Clock,
+  FileText,
   Home,
-  Users,
-  FolderHeart,
-  Folder,
-  DollarSign,
-  Shield,
-  User,
-  Settings,
   LogOut,
+  Settings,
+  User,
+  Users,
+  Wallet,
+  History,
 } from "lucide-react";
+import { IconType } from "react-icons/lib";
 
-export const mainItems = [
+interface MenuItem {
+  title: string;
+  url: string;
+  icon: IconType;
+}
+
+/**
+ * Main navigation items for the dashboard
+ */
+export const mainItems: MenuItem[] = [
   {
-    title: "Início",
+    title: "Visão Geral",
     url: "/dashboard/overview",
     icon: Home,
   },
@@ -25,31 +35,33 @@ export const mainItems = [
   {
     title: "Agendamentos",
     url: "/dashboard/schedules",
-    icon: Calendar,
+    icon: Clock,
   },
   {
-    title: "Histórico médico",
+    title: "Histórico Médico",
     url: "/dashboard/medical-history",
-    icon: FolderHeart,
-  },
-  {
-    title: "Documentos",
-    url: "/dashboard/documents",
-    icon: Folder,
+    icon: History,
   },
 ];
 
-export const managementItems = [
+/**
+ * Management and operations items
+ */
+export const managementItems: MenuItem[] = [
   {
-    title: "Receita",
-    url: "/dashboard/revenue",
-    icon: DollarSign,
+    title: "Documentos",
+    url: "/dashboard/documents",
+    icon: FileText,
   },
-
   {
-    title: "Auditoria",
+    title: "Financeiro",
+    url: "/dashboard/revenue",
+    icon: Wallet,
+  },
+  {
+    title: "Relatórios",
     url: "/dashboard/audit",
-    icon: Shield,
+    icon: BarChartBig,
   },
   {
     title: "Usuários",
@@ -58,15 +70,18 @@ export const managementItems = [
   },
 ];
 
-export const settingsItems = [
+/**
+ * Settings and utility items
+ */
+export const settingsItems: MenuItem[] = [
   {
     title: "Configurações",
-    url: "/dashboard/documents",
+    url: "/dashboard/settings",
     icon: Settings,
   },
   {
     title: "Sair",
-    url: "/dashboard/logout",
+    url: "/auth/signin",
     icon: LogOut,
   },
 ];

@@ -10,7 +10,7 @@ export default function RecoveryPage() {
   return (
     <SideImageLayout imageAlt="Image" imageSrc="/images/recovery-image.jpg">
       <div className="flex flex-col">
-        <h1 className="text-xl font-bold text-black">Defina uma nova senha</h1>
+        <h1 className="text-xl font-bold ">Defina uma nova senha</h1>
         <p className="text-sm font-normal text-gray-500">
           Digite sua nova senha e confirme-a para definir uma nova senha.
         </p>

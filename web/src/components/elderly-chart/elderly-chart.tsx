@@ -1,62 +1,72 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
 
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+interface ElderlyChartProps {
+  data: {
+    total: number;
+    byHealthStatus: {
+      stable: number;
+      critical: number;
+      improving: number;
+      declining: number;
+    };
+  };
+}
 
-const chartData = [
-  { month: "Janeiro", alerts: 120 },
-  { month: "Fevereiro", alerts: 95 },
-  { month: "Março", alerts: 150 },
-  { month: "Abril", alerts: 130 },
-  { month: "Maio", alerts: 170 },
-];
+export function ElderlyChart({ data }: ElderlyChartProps) {
+  const chartData = [
+    {
+      name: "Estável",
+      value: data.byHealthStatus?.stable || 0,
+      color: "#10b981",
+    },
+    {
+      name: "Crítico",
+      value: data.byHealthStatus?.critical || 0,
+      color: "#ef4444",
+    },
+    {
+      name: "Melhorando",
+      value: data.byHealthStatus?.improving || 0,
+      color: "#3b82f6",
+    },
+    {
+      name: "Piorando",
+      value: data.byHealthStatus?.declining || 0,
+      color: "#eab308",
+    },
+  ];
 
-const chartConfig = {
-  alerts: {
-    label: "Alertas",
-    color: "#FF5722",
-  },
-} satisfies ChartConfig;
-
-export function ElderlyChart() {
   return (
-    <Card className="flex w-full">
-      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Alertas em Geral</CardTitle>
-          <CardDescription>
-            Número total de alertas gerados por sensores ou registros manuais.
-          </CardDescription>
-        </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Estado dos Idosos</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar dataKey="alerts" fill="var(--color-alerts)" radius={4} />
-          </BarChart>
-        </ChartContainer>
+        <div className="h-[250px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={80}
+                paddingAngle={1}
+                dataKey="value"
+                nameKey="name"
+                label
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );
