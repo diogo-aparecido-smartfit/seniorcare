@@ -2,10 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { MoreHorizontal, Pencil, Trash2, UserRound, Users } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,14 +13,42 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Elderly } from "@/services/elderly";
+import { Elderly } from "@/services/services";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface DataColumnsProps {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
+  onViewDetails?: (id: string) => void;
 }
 
-export const columns = ({ onEdit, onDelete }: DataColumnsProps) => {
+// Helper function to calculate age from birthdate
+const calculateAge = (birthDate: string): number => {
+  const today = new Date();
+  const birthDateObj = new Date(birthDate);
+  let age = today.getFullYear() - birthDateObj.getFullYear();
+  const monthDiff = today.getMonth() - birthDateObj.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+};
+
+export const columns = ({
+  onEdit,
+  onDelete,
+  onViewDetails,
+}: DataColumnsProps) => {
   const columns: ColumnDef<Elderly>[] = [
     {
       id: "select",
@@ -54,10 +81,9 @@ export const columns = ({ onEdit, onDelete }: DataColumnsProps) => {
         const elderly = row.original;
         return (
           <Avatar>
-            <AvatarImage src={elderly.photo} />
-            <AvatarFallback>
+            <AvatarFallback className="bg-blue-100 text-blue-600">
               {elderly.name
-                .split(" ")
+                ?.split(" ")
                 .map((n) => n[0])
                 .slice(0, 2)
                 .join("")}
@@ -74,54 +100,71 @@ export const columns = ({ onEdit, onDelete }: DataColumnsProps) => {
     },
     {
       id: "age",
-      accessorKey: "age",
       header: "Idade",
-    },
-    {
-      id: "gender",
-      accessorKey: "gender",
-      header: "Gênero",
-    },
-    {
-      id: "roomNumber",
-      accessorKey: "roomNumber",
-      header: "Quarto",
-    },
-    {
-      id: "healthStatus",
-      accessorKey: "healthStatus",
-      header: "Status de Saúde",
       cell: ({ row }) => {
-        const status = row.getValue("healthStatus") as string;
-        let color = "default";
-
-        switch (status.toLowerCase()) {
-          case "estável":
-          case "stable":
-            color = "green";
-            break;
-          case "crítico":
-          case "critical":
-            color = "red";
-            break;
-          case "melhorando":
-          case "improving":
-            color = "blue";
-            break;
-          case "piorando":
-          case "declining":
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            color = "yellow";
-            break;
-        }
-
-        return <Badge variant="outline">{status}</Badge>;
+        const birthDate = row.original.birthDate;
+        if (!birthDate) return "-";
+        return `${calculateAge(birthDate)} anos`;
       },
     },
     {
-      id: "contactInfo",
-      accessorKey: "contactInfo.primaryContact",
-      header: "Contato Principal",
+      id: "emergencyContact",
+      accessorKey: "emergencyContact",
+      header: "Contato de Emergência",
+    },
+    {
+      id: "address",
+      accessorKey: "address",
+      header: "Endereço",
+      cell: ({ row }) => {
+        const address = row.original.address;
+        if (!address) return "-";
+
+        // Truncate long addresses for display
+        return address.length > 30 ? (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span>{address.substring(0, 30)}...</span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{address}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : (
+          address
+        );
+      },
+    },
+    {
+      id: "caregivers",
+      header: "Cuidadores",
+      cell: ({ row }) => {
+        const caregivers = row.original.caregivers || [];
+
+        if (caregivers.length === 0) return "-";
+
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex items-center">
+                  <UserRound className="h-4 w-4 mr-1" />
+                  <span>{caregivers.length}</span>
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <ul className="list-disc pl-4">
+                  {caregivers.map((caregiver) => (
+                    <li key={caregiver.id}>{caregiver.user?.name}</li>
+                  ))}
+                </ul>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        );
+      },
     },
     {
       id: "actions",
@@ -140,6 +183,11 @@ export const columns = ({ onEdit, onDelete }: DataColumnsProps) => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Ações</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              {onViewDetails && (
+                <DropdownMenuItem onClick={() => onViewDetails(elderly.id)}>
+                  <Users className="mr-2 h-4 w-4" /> Ver detalhes
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem onClick={() => onEdit(elderly.id)}>
                 <Pencil className="mr-2 h-4 w-4" /> Editar
               </DropdownMenuItem>

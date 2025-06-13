@@ -16,9 +16,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { mainItems, managementItems, settingsItems } from "./items";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 const DashboardSidebar = () => {
   const pathname = usePathname() || "/";
+  const { user: currentUser } = useAuth();
 
   return (
     <Sidebar collapsible="icon">
@@ -31,7 +33,9 @@ const DashboardSidebar = () => {
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <span className="text-base font-medium">Fulano</span>
+                <span className="text-base font-medium">
+                  {currentUser?.name}
+                </span>
               </div>
             </SidebarMenuItem>
           </SidebarMenu>

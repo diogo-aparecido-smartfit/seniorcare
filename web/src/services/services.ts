@@ -49,7 +49,6 @@ export interface FamilyMember {
   relationship: string;
 }
 
-// Auth Services
 export const authService = {
   login: async (email: string, password: string) => {
     const response = await api.post("/api/auth/login", { email, password });
@@ -67,7 +66,6 @@ export const authService = {
   },
 };
 
-// User Services
 export const userService = {
   getAll: async () => {
     const response = await api.get("/api/users");
@@ -94,7 +92,6 @@ export const userService = {
   },
 };
 
-// Organization Services
 export const organizationService = {
   getAll: async () => {
     const response = await api.get("/api/organizations");
@@ -121,7 +118,6 @@ export const organizationService = {
   },
 };
 
-// Elderly Services
 export const elderlyService = {
   getAll: async () => {
     const response = await api.get("/api/elderly");
@@ -162,10 +158,10 @@ export const elderlyService = {
   },
 };
 
-// Caregiver Services
 export const caregiverService = {
   getAll: async () => {
     const response = await api.get("/api/caregivers");
+    console.log("caregivers: ", response);
     return response.data as Caregiver[];
   },
 
@@ -174,7 +170,11 @@ export const caregiverService = {
     return response.data as Caregiver;
   },
 
-  create: async (caregiverData: Partial<Caregiver>) => {
+  create: async (caregiverData: {
+    userId: string;
+    organizationId: string;
+    specialty?: string;
+  }) => {
     const response = await api.post("/api/caregivers", caregiverData);
     return response.data as Caregiver;
   },
@@ -207,17 +207,28 @@ export const caregiverService = {
   },
 };
 
-// Family Member Services
 export const familyMemberService = {
-  create: async (familyMemberData: any) => {
-    const response = await api.post("/api/family-members", familyMemberData);
-    return response.data;
+  getAll: async () => {
+    const response = await api.get("/api/family-members");
+    return response.data as FamilyMember[];
   },
 
-  updateRelationship: async (id: string, relationship: string) => {
-    const response = await api.put(`/api/family-members/${id}/relationship`, {
-      relationship,
-    });
-    return response.data;
+  getById: async (id: string) => {
+    const response = await api.get(`/api/family-members/${id}`);
+    return response.data as FamilyMember;
+  },
+
+  create: async (data: Partial<FamilyMember>) => {
+    const response = await api.post("/api/family-members", data);
+    return response.data as FamilyMember;
+  },
+
+  update: async (id: string, data: Partial<FamilyMember>) => {
+    const response = await api.put(`/api/family-members/${id}`, data);
+    return response.data as FamilyMember;
+  },
+
+  delete: async (id: string) => {
+    await api.delete(`/api/family-members/${id}`);
   },
 };

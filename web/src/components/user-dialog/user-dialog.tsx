@@ -16,6 +16,8 @@ import { User } from "@/services/services";
 import { useUserDetails } from "@/hooks/useUserDetails";
 import { useCreateUser } from "@/hooks/useCreateUser";
 import { useUpdateUser } from "@/hooks/useUpdateUser";
+import { useCreateCaregiver } from "@/hooks/useCreateCaregiver";
+import { useCreateFamilyMember } from "@/hooks/useCreateFamilyMember";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 import { ApiSelect } from "@/components/ui/api-select";
@@ -46,7 +48,13 @@ export function UserDialog({
   );
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();
+  const createCaregiver = useCreateCaregiver();
+  const createFamilyMember = useCreateFamilyMember();
   const [selectedRole, setSelectedRole] = useState<string | null>("CAREGIVER");
+
+  // Add state for specialty/relationship fields
+  const [specialty, setSpecialty] = useState<string>("");
+  const [relationship, setRelationship] = useState<string>("");
 
   const {
     register,
@@ -60,6 +68,10 @@ export function UserDialog({
     if (open && userDetails) {
       reset(userDetails);
       setSelectedRole(userDetails.role || "CAREGIVER");
+
+      // Reset specialty/relationship fields
+      setSpecialty("");
+      setRelationship("");
     } else if (open) {
       reset({
         name: "",
@@ -67,6 +79,10 @@ export function UserDialog({
         organizationId: currentUser?.organizationId || "",
       });
       setSelectedRole("CAREGIVER");
+
+      // Reset specialty/relationship fields
+      setSpecialty("");
+      setRelationship("");
     }
   }, [open, userDetails, reset, currentUser]);
 
@@ -78,21 +94,37 @@ export function UserDialog({
       };
 
       if (userId) {
+        // Update existing user
         await updateUser.mutateAsync({
           id: userId,
           data: { ...formData, role: selectedRole || undefined },
         });
+
+        toast.success("Usuário atualizado com sucesso!");
       } else {
-        await createUser.mutateAsync({
+        const createdUser = await createUser.mutateAsync({
           ...formData,
           role: selectedRole || undefined,
         });
+
+        if (createdUser.id) {
+          if (selectedRole === "CAREGIVER") {
+            await createCaregiver.mutateAsync({
+              userId: createdUser.id,
+              organizationId: createdUser.organizationId,
+              specialty: specialty || "Geral",
+            });
+          } else if (selectedRole === "FAMILY") {
+            await createFamilyMember.mutateAsync({
+              userId: createdUser.id,
+              relationship: relationship || "Familiar",
+              organizationId: createdUser.organizationId,
+            });
+          }
+        }
+
+        toast.success("Usuário criado com sucesso!");
       }
-      toast.success(
-        userId
-          ? "Usuário atualizado com sucesso!"
-          : "Usuário criado com sucesso!"
-      );
       onClose();
     } catch (error) {
       console.error("Erro ao salvar usuário:", error);
@@ -104,7 +136,13 @@ export function UserDialog({
     detailsLoading ||
     isSubmitting ||
     createUser.isPending ||
-    updateUser.isPending;
+    updateUser.isPending ||
+    createCaregiver.isPending ||
+    createFamilyMember.isPending;
+
+  const showSpecialtyField = !userId && selectedRole === "CAREGIVER";
+
+  const showRelationshipField = !userId && selectedRole === "FAMILY";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -116,7 +154,7 @@ export function UserDialog({
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="flex flex-col w-full gap-4">
               <Label htmlFor="name" className="text-right">
                 Nome
               </Label>
@@ -133,7 +171,7 @@ export function UserDialog({
               )}
             </div>
 
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="flex flex-col w-full gap-4">
               <Label htmlFor="email" className="text-right">
                 Email
               </Label>
@@ -150,14 +188,17 @@ export function UserDialog({
                 </p>
               )}
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
+
+            <div className="flex flex-col w-full gap-4">
               <Label htmlFor="password" className="text-right">
                 Senha
               </Label>
               <Input
                 id="password"
                 type="password"
-                {...register("password", { required: "Senha é obrigatório" })}
+                {...register("password", {
+                  required: userId ? false : "Senha é obrigatória",
+                })}
                 className="col-span-3"
                 disabled={isLoading}
               />
@@ -168,7 +209,7 @@ export function UserDialog({
               )}
             </div>
 
-            <div className="grid grid-cols-4 items-center gap-4">
+            <div className="flex flex-col w-full gap-4">
               <Label htmlFor="role" className="text-right">
                 Função
               </Label>
@@ -183,7 +224,7 @@ export function UserDialog({
                   displayField="name"
                   placeholder="Selecione uma função"
                   emptyMessage="Nenhuma função encontrada"
-                  disabled={isLoading}
+                  disabled={isLoading || !!userId} // Disable role change for existing users
                 />
               </div>
               {errors.role && (
@@ -192,6 +233,40 @@ export function UserDialog({
                 </p>
               )}
             </div>
+
+            {/* Show specialty field for caregivers */}
+            {showSpecialtyField && (
+              <div className="flex flex-col w-full gap-4">
+                <Label htmlFor="specialty" className="text-right">
+                  Especialidade
+                </Label>
+                <Input
+                  id="specialty"
+                  value={specialty}
+                  onChange={(e) => setSpecialty(e.target.value)}
+                  className="col-span-3"
+                  disabled={isLoading}
+                  placeholder="Ex: Enfermagem, Fisioterapia"
+                />
+              </div>
+            )}
+
+            {/* Show relationship field for family members */}
+            {showRelationshipField && (
+              <div className="flex flex-col w-full gap-4">
+                <Label htmlFor="relationship" className="text-right">
+                  Parentesco
+                </Label>
+                <Input
+                  id="relationship"
+                  value={relationship}
+                  onChange={(e) => setRelationship(e.target.value)}
+                  className="col-span-3"
+                  disabled={isLoading}
+                  placeholder="Ex: Filho(a), Cônjuge, Neto(a)"
+                />
+              </div>
+            )}
           </div>
 
           <DialogFooter>

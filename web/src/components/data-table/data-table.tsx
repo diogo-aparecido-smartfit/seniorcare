@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full cursor-pointer">
       <div className="flex items-center py-4 gap-4">
         <Input
           placeholder="Pesquise por nome..."
