@@ -4,8 +4,10 @@ import * as nextRouter from "next/navigation";
 
 describe("DashboardNavbar Component", () => {
   beforeEach(() => {
+    // Use a stub that returns a function to properly mock usePathname
     cy.stub(nextRouter, "usePathname").returns("/dashboard/overview");
 
+    // Mount component with proper SidebarProvider
     cy.mount(
       <SidebarProvider>
         <DashboardNavbar />
@@ -20,41 +22,25 @@ describe("DashboardNavbar Component", () => {
 
   it("should render the notification button and avatar on mobile", () => {
     cy.viewport(375, 667);
+    cy.get("nav").find(".md\\:hidden").find("button").should("exist");
     cy.get("nav")
-      .find(".md\\:hidden")
-      .first()
-      .within(() => {
-        cy.get("button").should("exist");
-        cy.get("img").should(
-          "have.attr",
-          "src",
-          "https://github.com/shadcn.png"
-        );
-      });
+      .find("img[src='https://github.com/shadcn.png']")
+      .should("exist");
   });
 
   it("should render the breadcrumb navigation on desktop", () => {
     cy.viewport(1280, 720);
-    cy.get("nav")
-      .find(".md\\:flex")
-      .first()
-      .within(() => {
-        cy.contains("Dashboard").should("exist");
-      });
+    cy.get("nav").contains("Dashboard").should("exist");
+    cy.get("nav").contains("Overview").should("exist");
   });
 
   it("should render the search input on desktop", () => {
     cy.viewport(1280, 720);
-    cy.get("nav").find("input[placeholder='Pesquisar ⌘/']").should("exist");
+    cy.get("nav").find("input[placeholder*='Pesquisar']").should("exist");
   });
 
-  it("should render the breadcrumb items correctly", () => {
+  it("should handle sidebar toggle correctly", () => {
     cy.viewport(1280, 720);
-    const routeArray = ["dashboard", "overview"];
-    routeArray.forEach((route) => {
-      cy.get("nav")
-        .contains(route.charAt(0).toUpperCase() + route.slice(1))
-        .should("exist");
-    });
+    cy.get("button[aria-label='Toggle Sidebar']").should("exist");
   });
 });

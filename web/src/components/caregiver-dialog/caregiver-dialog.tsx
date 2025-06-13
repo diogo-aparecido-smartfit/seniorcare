@@ -79,7 +79,11 @@ export function CaregiverDialog({
           data: formattedData,
         });
       } else {
-        await createCaregiver.mutateAsync(formattedData);
+        await createCaregiver.mutateAsync({
+          userId: data.user?.id || "",
+          organizationId: user?.organizationId || "",
+          specialty: data.specialty || "",
+        });
       }
       onClose();
     } catch (error) {
