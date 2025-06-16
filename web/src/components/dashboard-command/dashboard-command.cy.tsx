@@ -1,7 +1,19 @@
+import * as nextNavigation from "next/navigation";
 import DashboardCommand from "./dashboard-command";
 
 describe("DashboardCommand Component", () => {
   beforeEach(() => {
+    const routerMock = {
+      push: cy.stub().as("routerPush"),
+      replace: cy.stub().as("routerReplace"),
+      refresh: cy.stub().as("routerRefresh"),
+      back: cy.stub().as("routerBack"),
+    };
+
+    cy.stub(nextNavigation, "useRouter").returns(routerMock);
+    cy.stub(nextNavigation, "usePathname").returns("/dashboard/overview");
+    cy.stub(nextNavigation, "useSearchParams").returns(new URLSearchParams());
+
     cy.mount(<DashboardCommand />);
   });
 

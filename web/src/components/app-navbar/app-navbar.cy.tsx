@@ -41,7 +41,9 @@ describe("AppNavbar Component", () => {
   });
 
   it("should add shadow and border when scrolled", () => {
-    cy.scrollTo(0, 100, { ensureScrollable: false });
+    cy.scrollTo(0, 100);
+    cy.wait(500);
+
     cy.get("nav div.fixed").should("have.class", "shadow-md");
     cy.get("nav div.fixed").should("have.class", "border-b-[1px]");
   });
